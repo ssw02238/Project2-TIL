@@ -1,3 +1,7 @@
+
+
+
+
 # **1일차 - 3월 24일**
 
 ### **진행방향 설정**
@@ -48,12 +52,20 @@ class ArticleForm(forms.ModelForm):
 
 update.html의 form action이 create로 되어있었음
 
-- 해결
-
 ```html
-<form action = '{%url 'articles:update '%}'>
-    ~~~~    
-</form>
+# 해결 
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>수정</h1>
+
+	# form의 action에 url이 articles:create로 되어있어 수정이 아니라 새로운 게시글이 생성되는 문제가 발생
+  <form action="{% url 'articles:update' article.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-warning">제출</button>
+  </form>
+{% endblock content %}
 ```
 
 
@@ -82,8 +94,12 @@ def update(request, pk):
 ```
 
 <hr>
+![image-20210331213449637](0324-crud구현, github 설정.assets/image-20210331213449637.png)
+
+열일하는 우리 팀의 스크린샷 ^0^
 
 <hr>
+
 
 ## 💜 Today I learned 
 
