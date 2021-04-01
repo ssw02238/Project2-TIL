@@ -142,12 +142,50 @@ accounts/password로 urls.py를 바꾸어 해결했다.
   Q. **두 인자를 넣었을때의 차이점은?**
 
   ```python
-  A. 
+  A. form.user는 중간에 유효성 검사를 거치는데 그냥 request.user를 넣을 경우
+  form 의 유효성 검사를 하는 의미가 무색해진다...!
+  instance를 통해 나온 유저인지 요청을 통해 나온 유저인지 의미론적 차이가 있으니 
+  여기서는 form.user로 받자! 
   ```
 
 
 
+### ❓ `form.user` vs `form.get_user`
 
+- `AuthenticationForm` 의 `__init__`에는 self
+
+  ```python
+  Django.github
+  
+  class AuthenticationForm(forms.Form):
+  
+      def __init__(self, request=None, *args, **kwargs):
+          
+          self.request = request
+          self.user_cache = None
+          super().__init__(*args, **kwargs)
+  
+      def get_user(self):
+          return self.user_cache
+  
+  class PasswordChangeForm(SetPasswordForm):
+  	pass
+  
+  class SetPasswordForm(forms.Form):
+      
+      def __init__(self, user, *args, **kwargs):
+          self.user = user
+          super().__init__(*args, **kwargs)
+  
+      def save(self, commit=True):
+          password = self.cleaned_data["new_password1"]
+          self.user.set_password(password)
+          if commit:
+              self.user.save()
+          return self.user
+  ```
+
+<hr> 
 
 ### 💜 Today I learned 
 
