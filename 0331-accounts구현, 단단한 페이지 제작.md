@@ -200,3 +200,19 @@ accounts/password로 urls.py를 바꾸어 해결했다.
 - 여러 decorators를 적용해 주는것도 슬슬 익숙해져서 get, post, safe 등 어떠한 메서드를 붙여야 할지 금방 파악할 수 있었다! :smile:
 - 4.5 (월): 알고리즘 수업 난이도에 따른 향후 계획 및 SQL 스터디 토의! 
 
+<hr>
+
+# 참고 
+
+### ✅ `@require_safe` 와 `@require_GET` 의 차이점
+
+- @require_GET은 GET만을 받아오는 반면,  @require_safe는 GET과 HEAD를 둘 다 받아온다.
+- 일부 사이트에서는 HEAD만을 받아야 하는 경우가 있으므로 @require_safe 사용을 더 권장한다.
+
+### 💙 CRUD에 사용자 인증(로그인) 여부에 따른 기능 사용 유무를 추가
+
+- C/U/D 는 로그인한 사용자만이 사용할 수 있다.
+- R은 로그인하지 않은 사용자도 게시판을 볼 수 있도록 하였다.
+
+<hr> 
+
